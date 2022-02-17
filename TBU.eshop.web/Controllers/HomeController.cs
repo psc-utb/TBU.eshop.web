@@ -6,6 +6,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using TBU.eshop.web.Models;
+using TBU.eshop.web.Models.Infrastructure.Database;
 
 namespace TBU.eshop.web.Controllers
 {
@@ -20,7 +21,11 @@ namespace TBU.eshop.web.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            IndexViewModel indexViewModel = new IndexViewModel();
+            indexViewModel.CarouselItems = DatabaseFake.CarouselItems;
+            //indexViewModel.Products = DatabaseFake.Products;
+
+            return View(indexViewModel);
         }
 
         public IActionResult Privacy()

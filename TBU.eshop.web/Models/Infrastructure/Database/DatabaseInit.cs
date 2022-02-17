@@ -2,12 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using TBU.eshop.web.Models.Entities;
 
 namespace TBU.eshop.web.Models.Infrastructure.Database
 {
     public class DatabaseInit
     {
-        /*public List<CarouselItem> GenerateCarouselItems()
+        public List<CarouselItem> GenerateCarouselItems()
         {
             List<CarouselItem> carouselItems = new List<CarouselItem>();
             CarouselItem ci1 = new CarouselItem()
@@ -41,6 +42,45 @@ namespace TBU.eshop.web.Models.Infrastructure.Database
             carouselItems.Add(ci4);
 
             return carouselItems;
+        }
+
+        //uncomment and complete the following code after you create the entity: Product
+        /*
+        public List<Product> GenerateProducts()
+        {
+            List<Product> products = new List<Product>();
+            Product p1 = new Product()
+            {
+                ID = 0,
+                //insert your code ...
+            };
+            Product p2 = new Product()
+            {
+                ID = 1,
+                //insert your code ...
+            };
+            Product p3 = new Product()
+            {
+                ID = 2,
+                //insert your code ...
+            };
+            Product p4 = new Product()
+            {
+                ID = 3,
+                //insert your code ...
+            };
+            Product p5 = new Product()
+            {
+                ID = 4,
+                //insert your code ...
+            };
+
+            products.Add(p1);
+            products.Add(p2);
+            products.Add(p3);
+            products.Add(p4);
+
+            return products;
         }*/
     }
 }
