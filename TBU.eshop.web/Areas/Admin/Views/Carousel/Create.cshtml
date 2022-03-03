@@ -1,0 +1,21 @@
+﻿@model CarouselItem
+@{
+    ViewData["Title"] = "Create Carousel Item";
+}
+<h1>@ViewData["Title"]</h1>
+
+<form asp-action="Create" method="post">
+    <div class="form-group">
+        <label asp-for="@Model.ID"></label>
+        <input asp-for="@Model.ID" class="form-control" placeholder="Enter ID">
+    </div>
+    <div class="form-group">
+        <label asp-for="@Model.ImageSource">Image Source</label>
+        <input asp-for="@Model.ImageSource" class="form-control" placeholder="Enter ID">
+    </div>
+    <div class="form-group">
+        <label asp-for="@Model.ImageAlt">Image Alt</label>
+        <input asp-for="@Model.ImageAlt" class="form-control" placeholder="Enter ID">
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
