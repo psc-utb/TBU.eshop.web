@@ -13,25 +13,25 @@ namespace TBU.eshop.web.Models.Infrastructure.Database
             List<CarouselItem> carouselItems = new List<CarouselItem>();
             CarouselItem ci1 = new CarouselItem()
             {
-                ID = 0,
+                ID = 1,
                 ImageSource = "/img/Information-Technology.jpg",
                 ImageAlt = "First slide"
             };
             CarouselItem ci2 = new CarouselItem()
             {
-                ID = 1,
+                ID = 2,
                 ImageSource = "/img/Information-Technology-1.jpg",
                 ImageAlt = "Second slide"
             };
             CarouselItem ci3 = new CarouselItem()
             {
-                ID = 2,
+                ID = 3,
                 ImageSource = "/img/IT.jpeg",
                 ImageAlt = "Third slide"
             };
             CarouselItem ci4 = new CarouselItem()
             {
-                ID = 3,
+                ID = 4,
                 ImageSource = "/img/bits-e1611847851285-1440x810.jpeg",
                 ImageAlt = "Fourth slide"
             };
