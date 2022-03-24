@@ -33,11 +33,18 @@ namespace TBU.eshop.web.Areas.Admin.Controllers
         [HttpPost]
         public IActionResult Create(CarouselItem carouselItem)
         {
-            eshopDbContext.CarouselItems.Add(carouselItem);
+            if (ModelState.IsValid)
+            {
+                eshopDbContext.CarouselItems.Add(carouselItem);
 
-            eshopDbContext.SaveChanges();
+                eshopDbContext.SaveChanges();
 
-            return RedirectToAction(nameof(Select));
+                return RedirectToAction(nameof(Select));
+            }
+            else
+            {
+                return View(carouselItem);
+            }
         }
 
         public IActionResult Edit(int ID)
@@ -54,18 +61,25 @@ namespace TBU.eshop.web.Areas.Admin.Controllers
         [HttpPost]
         public IActionResult Edit(CarouselItem carouselItem)
         {
-            CarouselItem ci = eshopDbContext.CarouselItems.FirstOrDefault(carouselI => carouselI.ID == carouselItem.ID);
-            if (ci != null)
+            if (ModelState.IsValid)
             {
-                ci.ImageAlt = carouselItem.ImageAlt;
-                ci.ImageSource = carouselItem.ImageSource;
+                CarouselItem ci = eshopDbContext.CarouselItems.FirstOrDefault(carouselI => carouselI.ID == carouselItem.ID);
+                if (ci != null)
+                {
+                    ci.ImageAlt = carouselItem.ImageAlt;
+                    ci.ImageSource = carouselItem.ImageSource;
 
-                eshopDbContext.SaveChanges();
+                    eshopDbContext.SaveChanges();
 
-                return RedirectToAction(nameof(Select));
+                    return RedirectToAction(nameof(Select));
+                }
+
+                return NotFound();
             }
-
-            return NotFound();
+            else
+            {
+                return View(carouselItem);
+            }
         }
 
 

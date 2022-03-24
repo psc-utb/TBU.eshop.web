@@ -4,14 +4,13 @@
 }
 <h1>@ViewData["Title"]</h1>
 
-<form asp-action="Create" method="post">
-    <div class="form-group">
-        <label asp-for="@Model.ImageSource">Image Source</label>
-        <input asp-for="@Model.ImageSource" class="form-control" placeholder="Enter Image Source">
-    </div>
-    <div class="form-group">
-        <label asp-for="@Model.ImageAlt">Image Alt</label>
-        <input asp-for="@Model.ImageAlt" class="form-control" placeholder="Enter Image Alt">
-    </div>
-    <button type="submit" class="btn btn-primary">Submit</button>
-</form>
+@{
+    ViewBag.ActionMethod = "Create";
+}
+
+<partial name="CreateEditForm" model="Model" />
+
+@section Scripts
+{
+    <partial name="_ValidationScriptsPartial" />
+}

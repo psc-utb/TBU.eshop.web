@@ -1,0 +1,22 @@
+﻿@model CarouselItem
+
+<form asp-action="@ViewBag.ActionMethod" method="post">
+    <div asp-validation-summary="All"></div>
+    @{
+        if (ViewBag.ActionMethod == "Edit")
+        { 
+            <input type="hidden" asp-for="@Model.ID" class="form-control">
+        }
+    }
+    <div class="form-group">
+        <label asp-for="@Model.ImageSource">Image Source</label>
+        <input asp-for="@Model.ImageSource" class="form-control" placeholder="Enter Image Source">
+        <span asp-validation-for="@Model.ImageSource" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="@Model.ImageAlt">Image Alt</label>
+        <input asp-for="@Model.ImageAlt" class="form-control" placeholder="Enter Image Alt">
+        <span asp-validation-for="@Model.ImageAlt" class="text-danger"></span>
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
