@@ -1,9 +1,11 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
+using TBU.eshop.web.Models.Validations;
 
 namespace TBU.eshop.web.Models.Entities
 {
@@ -13,6 +15,10 @@ namespace TBU.eshop.web.Models.Entities
         [Key]
         [Required]
         public int ID { get; set; }
+
+        [NotMapped]
+        [FileContent("image")]
+        public IFormFile Image { get; set; }
 
         [StringLength(255)]
         [Required]

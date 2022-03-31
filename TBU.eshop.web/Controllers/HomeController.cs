@@ -13,16 +13,18 @@ namespace TBU.eshop.web.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        readonly EshopDbContext eshopDbContext;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, EshopDbContext eshopDbContext)
         {
             _logger = logger;
+            this.eshopDbContext = eshopDbContext;
         }
 
         public IActionResult Index()
         {
             IndexViewModel indexViewModel = new IndexViewModel();
-            indexViewModel.CarouselItems = DatabaseFake.CarouselItems;
+            indexViewModel.CarouselItems = eshopDbContext.CarouselItems.ToList();
             //indexViewModel.Products = DatabaseFake.Products;
 
             return View(indexViewModel);

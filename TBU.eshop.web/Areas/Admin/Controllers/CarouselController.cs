@@ -1,9 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using TBU.eshop.web.Models.Entities;
+using TBU.eshop.web.Models.Implementation;
 using TBU.eshop.web.Models.Infrastructure.Database;
 
 namespace TBU.eshop.web.Areas.Admin.Controllers
@@ -12,9 +14,11 @@ namespace TBU.eshop.web.Areas.Admin.Controllers
     public class CarouselController : Controller
     {
         readonly EshopDbContext eshopDbContext;
-        public CarouselController(EshopDbContext eshopDB)
+        IWebHostEnvironment webHostEnvironment;
+        public CarouselController(EshopDbContext eshopDB, IWebHostEnvironment webHostEnvironment)
         {
             eshopDbContext = eshopDB;
+            this.webHostEnvironment = webHostEnvironment;
         }
 
 
@@ -31,8 +35,14 @@ namespace TBU.eshop.web.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create(CarouselItem carouselItem)
+        public async Task<IActionResult> Create(CarouselItem carouselItem)
         {
+
+            FileUpload fileUpload = new FileUpload(webHostEnvironment.WebRootPath, "img/Carousels", "image");
+            carouselItem.ImageSource = await fileUpload.FileUploadAsync(carouselItem.Image);
+
+            ModelState.Clear();
+            TryValidateModel(carouselItem);
             if (ModelState.IsValid)
             {
                 eshopDbContext.CarouselItems.Add(carouselItem);
@@ -59,15 +69,25 @@ namespace TBU.eshop.web.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public IActionResult Edit(CarouselItem carouselItem)
+        public async Task<IActionResult> Edit(CarouselItem carouselItem)
         {
+            carouselItem.ImageSource = "-";
+            if (carouselItem.Image != null)
+            {
+                FileUpload fileUpload = new FileUpload(webHostEnvironment.WebRootPath, "img/Carousels", "image");
+                carouselItem.ImageSource = await fileUpload.FileUploadAsync(carouselItem.Image);
+            }
+
+            ModelState.Clear();
+            TryValidateModel(carouselItem);
             if (ModelState.IsValid)
             {
                 CarouselItem ci = eshopDbContext.CarouselItems.FirstOrDefault(carouselI => carouselI.ID == carouselItem.ID);
                 if (ci != null)
                 {
                     ci.ImageAlt = carouselItem.ImageAlt;
-                    ci.ImageSource = carouselItem.ImageSource;
+                    if (carouselItem.ImageSource != "-")
+                        ci.ImageSource = carouselItem.ImageSource;
 
                     eshopDbContext.SaveChanges();
 

@@ -1,6 +1,6 @@
 ﻿@model CarouselItem
 
-<form asp-action="@ViewBag.ActionMethod" method="post">
+<form asp-action="@ViewBag.ActionMethod" method="post" enctype="multipart/form-data">
     <div asp-validation-summary="All"></div>
     @{
         if (ViewBag.ActionMethod == "Edit")
@@ -9,9 +9,9 @@
         }
     }
     <div class="form-group">
-        <label asp-for="@Model.ImageSource">Image Source</label>
-        <input asp-for="@Model.ImageSource" class="form-control" placeholder="Enter Image Source">
-        <span asp-validation-for="@Model.ImageSource" class="text-danger"></span>
+        <label asp-for="@Model.Image">Image Source</label>
+        <input id="fileupload" asp-for="@Model.Image" class="form-control-file" placeholder="Insert Image">
+        <span asp-validation-for="@Model.Image" class="text-danger"></span>
     </div>
     <div class="form-group">
         <label asp-for="@Model.ImageAlt">Image Alt</label>
