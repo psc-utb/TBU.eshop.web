@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TBU.eshop.web.Models.Infrastructure.Database;
 
 namespace TBU.eshop.web.Migrations
 {
     [DbContext(typeof(EshopDbContext))]
-    partial class EshopDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220407083024_MySql_1.0.1 identity initialization")]
+    partial class MySql_101identityinitialization
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -187,26 +189,6 @@ namespace TBU.eshop.web.Migrations
                         .HasDatabaseName("RoleNameIndex");
 
                     b.ToTable("AspNetRoles");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            ConcurrencyStamp = "cce94347-aeb6-4320-8e2c-2a44db9fb781",
-                            Name = "Admin"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            ConcurrencyStamp = "4f54c3f1-3883-4565-9f9b-88467ecf39cd",
-                            Name = "Manager"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            ConcurrencyStamp = "57aeb0ce-3339-49df-9078-da94ae513c7d",
-                            Name = "Customer"
-                        });
                 });
 
             modelBuilder.Entity("TBU.eshop.web.Models.Entities.Identity.User", b =>

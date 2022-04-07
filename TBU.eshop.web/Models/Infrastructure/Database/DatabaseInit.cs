@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using TBU.eshop.web.Models.Entities;
+using TBU.eshop.web.Models.Entities.Identity;
 
 namespace TBU.eshop.web.Models.Infrastructure.Database
 {
@@ -42,6 +43,15 @@ namespace TBU.eshop.web.Models.Infrastructure.Database
             carouselItems.Add(ci4);
 
             return carouselItems;
+        }
+
+        public List<Role> GenerateRoles()
+        {
+            Role admin = new Role(Roles.Admin.ToString(), 1);
+            Role manager = new Role(Roles.Manager.ToString(), 2);
+            Role customer = new Role(Roles.Customer.ToString(), 3);
+            List<Role> roles = new List<Role> { admin, manager, customer };
+            return roles;
         }
 
         //uncomment and complete the following code after you create the entity: Product

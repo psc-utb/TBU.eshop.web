@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -9,6 +10,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using TBU.eshop.web.Models.ApplicationServices.Abstraction;
+using TBU.eshop.web.Models.ApplicationServices.Implementation;
+using TBU.eshop.web.Models.Entities.Identity;
 using TBU.eshop.web.Models.Infrastructure.Database;
 
 namespace TBU.eshop.web
@@ -27,6 +31,38 @@ namespace TBU.eshop.web
         {
             services.AddDbContext<EshopDbContext>(options =>
                 options.UseMySql(Configuration.GetConnectionString("MySQLConnectionString"), new MySqlServerVersion("8.0.26")));
+            
+            services.AddIdentity<User, Role>()
+                .AddEntityFrameworkStores<EshopDbContext>()
+                .AddDefaultTokenProviders();
+
+            services.Configure<IdentityOptions>(options =>
+            {
+                options.Password.RequireDigit = false;
+                options.Password.RequiredLength = 3;
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequireUppercase = false;
+                options.Password.RequireLowercase = false;
+                options.Password.RequiredUniqueChars = 2;
+
+                options.Lockout.AllowedForNewUsers = true;
+                options.Lockout.MaxFailedAccessAttempts = 10;
+                options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(30);
+
+                options.User.RequireUniqueEmail = true;
+            });
+
+            services.ConfigureApplicationCookie(options =>
+            {
+                options.Cookie.HttpOnly = true;
+                options.ExpireTimeSpan = TimeSpan.FromMinutes(30);
+                options.LoginPath = "/Security/Account/Login";
+                options.LogoutPath = "/Security/Account/Logout";
+                options.SlidingExpiration = true;
+            });
+
+            //connect interface with implementation
+            services.AddScoped<ISecurityApplicationService, SecurityIdentityApplicationService>();
 
             services.AddControllersWithViews();
         }
