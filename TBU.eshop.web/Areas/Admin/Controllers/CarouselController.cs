@@ -1,16 +1,19 @@
-﻿using Microsoft.AspNetCore.Hosting;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using TBU.eshop.web.Models.Entities;
+using TBU.eshop.web.Models.Entities.Identity;
 using TBU.eshop.web.Models.Implementation;
 using TBU.eshop.web.Models.Infrastructure.Database;
 
 namespace TBU.eshop.web.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize(Roles = nameof(Roles.Admin) + ", " + nameof(Roles.Manager))]
     public class CarouselController : Controller
     {
         readonly EshopDbContext eshopDbContext;
@@ -20,7 +23,6 @@ namespace TBU.eshop.web.Areas.Admin.Controllers
             eshopDbContext = eshopDB;
             this.webHostEnvironment = webHostEnvironment;
         }
-
 
         public IActionResult Select()
         {

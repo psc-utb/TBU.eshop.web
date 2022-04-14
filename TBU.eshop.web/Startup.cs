@@ -38,12 +38,12 @@ namespace TBU.eshop.web
 
             services.Configure<IdentityOptions>(options =>
             {
-                options.Password.RequireDigit = false;
-                options.Password.RequiredLength = 3;
+                options.Password.RequireDigit = true;
+                options.Password.RequiredLength = 2;
                 options.Password.RequireNonAlphanumeric = false;
-                options.Password.RequireUppercase = false;
-                options.Password.RequireLowercase = false;
-                options.Password.RequiredUniqueChars = 2;
+                options.Password.RequireUppercase = true;
+                options.Password.RequireLowercase = true;
+                options.Password.RequiredUniqueChars = 1;
 
                 options.Lockout.AllowedForNewUsers = true;
                 options.Lockout.MaxFailedAccessAttempts = 10;
@@ -85,6 +85,7 @@ namespace TBU.eshop.web
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

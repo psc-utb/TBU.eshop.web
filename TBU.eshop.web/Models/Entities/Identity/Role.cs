@@ -16,6 +16,7 @@ namespace TBU.eshop.web.Models.Entities.Identity
         public Role(string name, int id) : base(name)
         {
             Id = id;
+            NormalizedName = name.ToUpper();
         }
     }
 }

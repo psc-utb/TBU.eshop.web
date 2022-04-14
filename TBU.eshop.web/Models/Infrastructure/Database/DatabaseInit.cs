@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Identity;
+using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using TBU.eshop.web.Models.Entities;
@@ -92,5 +94,82 @@ namespace TBU.eshop.web.Models.Infrastructure.Database
 
             return products;
         }*/
+
+        public async Task EnsureAdminCreated(UserManager<User> userManager)
+        {
+            User user = new User
+            {
+                UserName = "admin",
+                Email = "admin@admin.cz",
+                EmailConfirmed = true,
+                FirstName = "name",
+                LastName = "last name"
+            };
+            string password = "aA1/";
+
+            User adminInDatabase = await userManager.FindByNameAsync(user.UserName);
+
+            if (adminInDatabase == null)
+            {
+
+                IdentityResult result = await userManager.CreateAsync(user, password);
+
+                if (result == IdentityResult.Success)
+                {
+                    string[] roles = Enum.GetNames(typeof(Roles));
+                    foreach (var role in roles)
+                    {
+                        await userManager.AddToRoleAsync(user, role);
+                    }
+                }
+                else if (result != null && result.Errors != null && result.Errors.Count() > 0)
+                {
+                    foreach (var error in result.Errors)
+                    {
+                        Debug.WriteLine($"Error during Role creation for Admin: {error.Code}, {error.Description}");
+                    }
+                }
+            }
+
+        }
+
+        public async Task EnsureManagerCreated(UserManager<User> userManager)
+        {
+            User user = new User
+            {
+                UserName = "manager",
+                Email = "manager@manager.cz",
+                EmailConfirmed = true,
+                FirstName = "name",
+                LastName = "last name"
+            };
+            string password = "aA1/";
+
+            User managerInDatabase = await userManager.FindByNameAsync(user.UserName);
+
+            if (managerInDatabase == null)
+            {
+
+                IdentityResult result = await userManager.CreateAsync(user, password);
+
+                if (result == IdentityResult.Success)
+                {
+                    string[] roles = Enum.GetNames(typeof(Roles));
+                    foreach (var role in roles)
+                    {
+                        if (role != Roles.Admin.ToString())
+                            await userManager.AddToRoleAsync(user, role);
+                    }
+                }
+                else if (result != null && result.Errors != null && result.Errors.Count() > 0)
+                {
+                    foreach (var error in result.Errors)
+                    {
+                        Debug.WriteLine($"Error during Role creation for Manager: {error.Code}, {error.Description}");
+                    }
+                }
+            }
+
+        }
     }
 }
