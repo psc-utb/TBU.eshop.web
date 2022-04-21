@@ -9,6 +9,6 @@ namespace TBU.eshop.web.Models
     public class IndexViewModel
     {
         public IList<CarouselItem> CarouselItems { get; set; }
-        //public IList<Product> Products { get; set; }
+        public IList<Product> Products { get; set; }
     }
 }

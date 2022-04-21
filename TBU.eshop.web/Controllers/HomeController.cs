@@ -25,7 +25,7 @@ namespace TBU.eshop.web.Controllers
         {
             IndexViewModel indexViewModel = new IndexViewModel();
             indexViewModel.CarouselItems = eshopDbContext.CarouselItems.ToList();
-            //indexViewModel.Products = DatabaseFake.Products;
+            indexViewModel.Products = eshopDbContext.Products.ToList();
 
             return View(indexViewModel);
         }

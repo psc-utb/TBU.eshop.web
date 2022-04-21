@@ -57,43 +57,45 @@ namespace TBU.eshop.web.Models.Infrastructure.Database
         }
 
         //uncomment and complete the following code after you create the entity: Product
-        /*
+
         public List<Product> GenerateProducts()
         {
             List<Product> products = new List<Product>();
+
             Product p1 = new Product()
             {
-                ID = 0,
-                //insert your code ...
+                ID = 1,
+                ImageSource = "/img/Products/Chleb_100_zito_2.jpg",
+                Name = "Bread",
+                Description = "Yes, it is a bread.",
+                Price = 25,
+                Quantity = 50
             };
             Product p2 = new Product()
             {
-                ID = 1,
-                //insert your code ...
+                ID = 2,
+                ImageSource = "/img/Products/thumb_260x340__masla-a-tuky.jpg",
+                Name = "Butter",
+                Description = "Delicious butter",
+                Price = 45,
+                Quantity = 10
             };
             Product p3 = new Product()
             {
-                ID = 2,
-                //insert your code ...
-            };
-            Product p4 = new Product()
-            {
                 ID = 3,
-                //insert your code ...
-            };
-            Product p5 = new Product()
-            {
-                ID = 4,
-                //insert your code ...
+                ImageSource = "/img/Products/produkty-home.png",
+                Name = "Glass (200 ml)",
+                Description = "Just for drink.",
+                Price = 400,
+                Quantity = 125
             };
 
             products.Add(p1);
             products.Add(p2);
             products.Add(p3);
-            products.Add(p4);
 
             return products;
-        }*/
+        }
 
         public async Task EnsureAdminCreated(UserManager<User> userManager)
         {

@@ -13,6 +13,7 @@ namespace TBU.eshop.web.Models.Infrastructure.Database
     public class EshopDbContext : IdentityDbContext<User, Role, int>
     {
         public DbSet<CarouselItem> CarouselItems { get; set; }
+        public DbSet<Product> Products { get; set; }
 
         public EshopDbContext(DbContextOptions options) : base(options)
         {
@@ -25,6 +26,7 @@ namespace TBU.eshop.web.Models.Infrastructure.Database
 
             DatabaseInit init = new DatabaseInit();
             modelBuilder.Entity<CarouselItem>().HasData(init.GenerateCarouselItems());
+            modelBuilder.Entity<Product>().HasData(init.GenerateProducts());
             modelBuilder.Entity<Role>().HasData(init.GenerateRoles());
         }
     }
