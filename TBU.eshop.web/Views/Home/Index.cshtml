@@ -82,16 +82,26 @@
                                     </div>
                                     <!-- Product actions-->
                                     <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                        <div class="text-center"><a class="btn btn-outline-dark mt-auto">Buy</a></div>
+                                        <div class="text-center"><a class="btn btn-outline-dark mt-auto"
+                                                                    onclick="Buy(@Model.Products[i].ID,'@Url.Action("AddOrderItemsToSession", "CustomerOrderNotCart", new { Area = "Customer" })', '#total_price', '@System.Globalization.CultureInfo.CurrentCulture.Name')">Buy</a></div>
                                     </div>
                                 </div>
                             </div>
-                            }
                         }
+                    }
                     <!-- Section-->
                 </div>
             </div>
         </section>
-        }
+    }
 }
 
+@section Scripts
+{
+    <environment include="Development">
+        <script src="~/js/Product.js"></script>
+    </environment>
+    <environment exclude="Development">
+        <script src="~/js/Product.min.js"></script>
+    </environment>
+}

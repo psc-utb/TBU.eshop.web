@@ -61,6 +61,17 @@ namespace TBU.eshop.web
                 options.SlidingExpiration = true;
             });
 
+            services.AddDistributedMemoryCache(); // Adds a default in-memory implementation of IDistributedCache
+            services.AddSession(options =>
+            {
+                // Set a short timeout for easy testing.
+                options.IdleTimeout = TimeSpan.FromMinutes(30);
+                options.Cookie.HttpOnly = true;
+                // Make the session cookie essential
+                options.Cookie.IsEssential = true;
+
+            });
+
             //connect interface with implementation
             services.AddScoped<ISecurityApplicationService, SecurityIdentityApplicationService>();
 
@@ -82,6 +93,8 @@ namespace TBU.eshop.web
             }
             app.UseHttpsRedirection();
             app.UseStaticFiles();
+            
+            app.UseSession();
 
             app.UseRouting();
 
